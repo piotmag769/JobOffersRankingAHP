@@ -1,3 +1,4 @@
+import numpy as np
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
 
@@ -6,8 +7,8 @@ from ranking import RankingCalculator
 
 
 class JobAddingWindow:
-    def __init__(self, ranking_calculator: RankingCalculator):
-        self.ranking_calculator = ranking_calculator
+    def __init__(self):
+        self.ranking_calculator = RankingCalculator()
         self.jobs_names = []
 
         self.root = tk.Tk()
@@ -37,9 +38,8 @@ class JobAddingWindow:
         frame2.pack(side=tk.RIGHT)
 
     def _open_comparision_gui(self):
-        self.ranking_calculator.C_1_2 = [[] for _ in range(5)]
-        self.ranking_calculator.C_array = [
-            []for _ in range(len(self.jobs_names))]
+        n = len(self.jobs_names)
+        self.ranking_calculator.C_array = [np.ones((n, n)) for _ in range(5)]
         self.root.destroy()
         ComparisionWindow(self.ranking_calculator).mainloop()
 

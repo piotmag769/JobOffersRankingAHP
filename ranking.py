@@ -6,7 +6,7 @@ class RankingCalculator:
 
     def __init__(self):
         self.C_array = None
-        self.C_1_2 = None
+        self.C_1_2 = np.ones((5, 5))
 
     @staticmethod
     def _priority_vector(matrix):
