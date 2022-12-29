@@ -1,4 +1,4 @@
-from ranking import compute_ranking_and_consistency_ratios
+from ranking import RankingCalculator
 
 
 # RI_n_9[x] - RI_x_9 where x = len(matrix)
@@ -65,7 +65,12 @@ C_1_2 = [
 ]
 
 
-print(compute_ranking_and_consistency_ratios(C_array, C_1_2, RI_n_9))
+ranking_calculator = RankingCalculator()
+ranking_calculator.C_1_2 = C_1_2
+ranking_calculator.C_array = C_array
+
+
+print(ranking_calculator.compute_ranking_and_consistency_ratios())
 
 
 # categories

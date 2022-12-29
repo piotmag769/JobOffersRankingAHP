@@ -37,7 +37,8 @@ class MainWindow:
         gui = CompWindow()
 
     def _add_job(self):
-        self.jobs_list.insert(tk.INSERT,self.job_name.get(1.0, "end-1c") + "\n")
+        self.jobs_list.insert(tk.INSERT, self.job_name.get(1.0, "end-1c") + "\n")
+        
 
 
 
