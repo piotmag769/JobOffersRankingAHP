@@ -41,7 +41,7 @@ class JobAddingWindow:
         n = len(self.jobs_names)
         self.ranking_calculator.C_array = [np.ones((n, n)) for _ in range(5)]
         self.root.destroy()
-        ComparisionWindow(self.ranking_calculator).mainloop()
+        ComparisionWindow(self.ranking_calculator, self.jobs_names).mainloop()
 
     def _add_job(self):
         new_job_name = self.job_name.get(1.0, "end-1c")

@@ -5,8 +5,12 @@ from results_gui import ResultsWindow
 
 
 class ComparisionWindow:
-    def __init__(self, ranking_calculator: RankingCalculator):
+    def __init__(self, ranking_calculator: RankingCalculator, jobs_names):
         self.ranking_calculator = ranking_calculator
+        self.jobs_names = jobs_names
+
+        self.first_job_index = 0
+        self.second_job_index = 1
 
         self.root = tk.Tk()
         self.root.geometry('700x500')
@@ -19,7 +23,7 @@ class ComparisionWindow:
         frame5 = tk.Frame(self.root)
 
         self.label = tk.Label(
-            self.root, text='Comparing... 1/40', font=("Arial", 25))
+            self.root, text='Comparing...', font=("Arial", 25))
         self.label.pack(side=tk.TOP)
 
         self.category = tk.Label(
@@ -27,7 +31,8 @@ class ComparisionWindow:
         self.category.pack(side=tk.TOP)
 
         self.job1 = tk.Label(
-            frame1, text='job1 name / job2 name = ', font=("Arial", 15))
+            frame1, text=self.jobs_names[self.first_job_index] +
+            ' / ' + self.jobs_names[self.second_job_index] + ' = ', font=("Arial", 15))
         self.job1.pack()
 
         self.spin_box = tk.Spinbox(frame2, from_=0, to=50, values=[
@@ -49,7 +54,18 @@ class ComparisionWindow:
         frame5.pack(side=tk.LEFT)
 
     def _next_comparision(self):
-        pass
+
+        self.second_job_index += 1
+        if self.second_job_index == len(self.jobs_names):
+            self.first_job_index += 1
+            self.second_job_index = self.first_job_index + 1
+
+        if self.first_job_index == len(self.jobs_names) - 1:
+            self._open_results_gui()
+            return
+
+        self.job1.config(text=self.jobs_names[self.first_job_index] +
+                         ' / ' + self.jobs_names[self.second_job_index] + ' = ')
 
     def _open_results_gui(self):
         self.root.destroy()
