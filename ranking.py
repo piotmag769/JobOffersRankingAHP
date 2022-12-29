@@ -2,11 +2,11 @@ import numpy as np
 
 
 class RankingCalculator:
-    RI_n_q = [0, 0, 0, 0.546, 0.83, 1.08, 1.26, 1.33, 1.41, 1.45, 1.47]
+    RI_n_9 = [0, 0, 0, 0.546, 0.83, 1.08, 1.26, 1.33, 1.41, 1.45, 1.47]
 
     def __init__(self):
         self.C_array = None
-        self.C_1_2 = None
+        self.C_1_2 = np.ones((5, 5))
 
     @staticmethod
     def _priority_vector(matrix):
@@ -34,7 +34,7 @@ class RankingCalculator:
 
     @staticmethod
     def _consistency_ratio(matrix, priority_vector):
-        return RankingCalculator._sattys_consistency_index(matrix, priority_vector) / RankingCalculator.RI_n_q[len(matrix)]
+        return RankingCalculator._sattys_consistency_index(matrix, priority_vector) / RankingCalculator.RI_n_9[len(matrix)]
 
     def compute_ranking_and_consistency_ratios(self):
         w_1_2 = RankingCalculator._priority_vector(self.C_1_2)
