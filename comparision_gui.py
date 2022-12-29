@@ -22,25 +22,17 @@ class CompWindow:
         self.category = tk.Label(self.root, text='category name', font=("Arial", 20))
         self.category.pack(side=tk.TOP)
 
-        self.points = tk.Label(frame1, text='points:', font=("Arial", 15))
-        self.points.pack()
 
-        self.job1 = tk.Label(frame2, text='job1 name', font=("Arial", 15))
+        self.job1 = tk.Label(frame1, text='job1 name / job2 name = ', font=("Arial", 15))
         self.job1.pack()
 
-        self.job2 = tk.Label(frame3, text='job2 name', font=("Arial", 15))
-        self.job2.pack()
+        self.spin_box = tk.Spinbox(frame2,from_=0,to=50,values=["1/9","1/8","1/7","1/6","1/5","1/4","1/3","1/2","1","2","3","4","5","6","7","8","9"],wrap=True)
+        self.spin_box.pack()
 
-        self.job1_points= tk.Text(frame2, height=3, width=5,font=("Arial", 12))
-        self.job1_points.pack()
-
-        self.job2_points = tk.Text(frame3, height=3, width=5, font=("Arial", 12))
-        self.job2_points.pack()
-
-        self.next_button = tk.Button(frame4, text="Next", command=self._next_comparision,bg="#ccffff")
+        self.next_button = tk.Button(frame3, text="Next", command=self._next_comparision,bg="#ccffff")
         self.next_button.pack(ipadx=30,ipady=15,side =tk.BOTTOM)
 
-        self.done_button = tk.Button(frame5, text="Done", command=self._open_results_gui, bg="#ccffff")
+        self.done_button = tk.Button(frame4, text="Done", command=self._open_results_gui, bg="#ccffff")
         self.done_button.pack(ipadx=30, ipady=15, side=tk.BOTTOM)
 
         frame1.pack(side =tk.LEFT)
