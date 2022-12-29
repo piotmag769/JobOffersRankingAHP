@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from results_window import ResultsWindow
+from results_gui import ResultsWindow
 
 
 class CompWindow:
