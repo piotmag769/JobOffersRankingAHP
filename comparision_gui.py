@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from results_gui import ResultsWindow
+from ranking import RankingCalculator
 
 
 class ComparisionWindow:
@@ -52,7 +53,6 @@ class ComparisionWindow:
         frame4.pack(side=tk.LEFT)
         frame5.pack(side=tk.LEFT)
         self.root.mainloop()
-
 
     def _next_comparision(self):
 
