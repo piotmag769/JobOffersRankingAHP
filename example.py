@@ -1,4 +1,5 @@
 from ranking import RankingCalculator
+import numpy as np
 
 
 # RI_n_9[x] - RI_x_9 where x = len(matrix)
@@ -65,17 +66,12 @@ C_1_2 = [
 ]
 
 
-ranking_calculator = RankingCalculator()
-ranking_calculator.C_1_2 = C_1_2
-ranking_calculator.C_array = C_array
+if __name__ == "__main__":
+    alternatives_count = len(C_1)
+    features_count = len(C_1_2)
 
+    ranking_calculator = RankingCalculator(alternatives_count, features_count)
+    ranking_calculator.C_1_2 = np.array(C_1_2)
+    ranking_calculator.C_array = np.array(C_array)
 
-print(ranking_calculator.compute_ranking_and_consistency_ratios())
-
-
-# categories
-# 1. salary
-# 2. qualifications
-# 3. travel_cost
-# 4. benefits
-# 5. development_opportunities
+    print(ranking_calculator.compute_ranking_and_consistency_ratios())

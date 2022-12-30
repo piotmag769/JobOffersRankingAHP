@@ -2,14 +2,15 @@ import numpy as np
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
 
-from comparision_gui import ComparisionWindow
+from categories_comparision_gui import CategoriesComparisionGui
 from ranking import RankingCalculator
 
 
-class JobAddingWindow:
-    def __init__(self):
-        self.ranking_calculator = RankingCalculator()
-        self.jobs_names = []
+class AddingAlternativesGui:
+    def __init__(self, features_names):
+        self.features_names = features_names
+
+        self.alternatives_names = []
 
         self.root = tk.Tk()
         self.root.geometry('700x500')
@@ -31,22 +32,28 @@ class JobAddingWindow:
         self.add_job_button.pack(ipadx=100, ipady=15)
 
         self.done_button = tk.Button(
-            frame2, text="Done", command=self._open_comparision_gui, bg="#ccffff")
+            frame2, text="Done", command=self._open_categories_comparision_window, bg="#ccffff")
         self.done_button.pack(ipadx=100, ipady=15)
 
         frame1.pack(side=tk.LEFT)
         frame2.pack(side=tk.RIGHT)
 
-    def _open_comparision_gui(self):
-        n = len(self.jobs_names)
-        self.ranking_calculator.C_array = [np.ones((n, n)) for _ in range(5)]
+    def _open_categories_comparision_window(self):
+        alternatives_count = len(self.alternatives_names)
+        features_count = len(self.features_names)
+
+        ranking_calculator = RankingCalculator(
+            alternatives_count, features_count)
+
         self.root.destroy()
-        ComparisionWindow(self.ranking_calculator, self.jobs_names).mainloop()
+
+        CategoriesComparisionGui(ranking_calculator, self.alternatives_names,
+                         self.features_names).run()
 
     def _add_job(self):
         new_job_name = self.job_name.get(1.0, "end-1c")
         self.jobs_list.insert(tk.INSERT, new_job_name + "\n")
-        self.jobs_names.append(new_job_name)
+        self.alternatives_names.append(new_job_name)
 
-    def mainloop(self):
+    def run(self):
         self.root.mainloop()

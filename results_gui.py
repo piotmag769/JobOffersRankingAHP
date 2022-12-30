@@ -14,5 +14,10 @@ class ResultsWindow:
         self.label = tk.Label(self.root, text='Results:', font=("Arial", 25))
         self.label.pack(side=tk.TOP)
 
-    def mainloop(self):
+        print(self.ranking_calculator.C_1_2.__repr__())
+        print(self.ranking_calculator.C_array.__repr__())
+        
+        print(self.ranking_calculator.compute_ranking_and_consistency_ratios())
+
+    def run(self):
         self.root.mainloop()
