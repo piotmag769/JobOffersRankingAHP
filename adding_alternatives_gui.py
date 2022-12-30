@@ -1,4 +1,3 @@
-import numpy as np
 import tkinter as tk
 import tkinter.messagebox
 from tkinter.scrolledtext import ScrolledText

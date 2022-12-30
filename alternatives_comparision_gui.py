@@ -82,7 +82,7 @@ class AlternativesComparisionGui:
         AlternativesComparisionGui.feature_index += 1
 
         if AlternativesComparisionGui.feature_index == len(self.features_names):
-            ResultsGui(self.ranking_calculator, self.alternatives_names).run()
+            ResultsGui(self.ranking_calculator, self.alternatives_names, self.features_names).run()
         else:
             AlternativesComparisionGui(
                 self.ranking_calculator, self.alternatives_names, self.features_names).run()

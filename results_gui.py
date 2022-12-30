@@ -6,9 +6,10 @@ from ranking import RankingCalculator
 
 
 class ResultsGui:
-    def __init__(self, ranking_calculator: RankingCalculator, alternatives_names):
+    def __init__(self, ranking_calculator: RankingCalculator, alternatives_names, features_names):
         self.ranking_calculator = ranking_calculator
         self.alternatives_names = alternatives_names
+        self.features_names = features_names
 
         self.root = tk.Tk()
         self.root.geometry('700x500')
@@ -41,7 +42,7 @@ class ResultsGui:
 
     def _show_consistency_ratios(self):
         self.root.destroy()
-        ConsistencyGui(self.C_1_2_consistency_ratio, self.C_array_consistency_ratios).run()
+        ConsistencyGui(self.C_1_2_consistency_ratio, self.C_array_consistency_ratios, self.features_names).run()
 
 
     def run(self):
