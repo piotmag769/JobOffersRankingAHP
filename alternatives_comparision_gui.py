@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from results_gui import ResultsWindow
+from results_gui import ResultsGui
 from ranking import RankingCalculator
 
 
@@ -50,7 +50,7 @@ class AlternativesComparisionGui:
         frame3.pack(side=tk.LEFT)
 
     def _generate_label(self):
-        return self.features_names[self.first_index] + " / " + self.features_names[self.second_index] + " = "
+        return self.alternatives_names[self.first_index] + " / " + self.alternatives_names[self.second_index] + " = "
 
     def _read_from_spin_box(self):
         text = self.spin_box.get()
@@ -82,7 +82,7 @@ class AlternativesComparisionGui:
         AlternativesComparisionGui.feature_index += 1
 
         if AlternativesComparisionGui.feature_index == len(self.features_names):
-            ResultsWindow(self.ranking_calculator).run()
+            ResultsGui(self.ranking_calculator, self.alternatives_names).run()
         else:
             AlternativesComparisionGui(
                 self.ranking_calculator, self.alternatives_names, self.features_names).run()

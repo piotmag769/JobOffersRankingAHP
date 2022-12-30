@@ -1,6 +1,8 @@
 import numpy as np
 import tkinter as tk
+import tkinter.messagebox
 from tkinter.scrolledtext import ScrolledText
+
 
 from categories_comparision_gui import CategoriesComparisionGui
 from ranking import RankingCalculator
@@ -41,6 +43,10 @@ class AddingAlternativesGui:
     def _open_categories_comparision_window(self):
         alternatives_count = len(self.alternatives_names)
         features_count = len(self.features_names)
+
+        if alternatives_count < 3:
+            tk.messagebox.showinfo("Stop - wait a minute", "Hi :)) You need at least 3 job offers")
+            return
 
         ranking_calculator = RankingCalculator(
             alternatives_count, features_count)
