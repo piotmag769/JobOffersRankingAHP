@@ -6,8 +6,6 @@ from tkinter.scrolledtext import ScrolledText
 from categories_comparision_gui import CategoriesComparisionGui
 from ranking import RankingCalculator
 
-
-# TODO: zrób okienka z dodanymi pracami i kategoriami uneditable
 class AddingAlternativesGui:
     def __init__(self):
         self.features_names = []
@@ -26,7 +24,7 @@ class AddingAlternativesGui:
         self.label = tk.Label(frame2, text='Jobs list:', font=("Arial", 25))
         self.label.pack()
 
-        self.jobs_list = ScrolledText(frame2, width=20, height=18)
+        self.jobs_list = ScrolledText(frame2, width=20, height=18, state = tk.DISABLED)
         self.jobs_list.pack()
 
         self.label2 = tk.Label(frame3, text='Categories list:', font=("Arial", 25))
@@ -35,10 +33,10 @@ class AddingAlternativesGui:
         self.label3 = tk.Label(frame4, text='Experts list:', font=("Arial", 25))
         self.label3.pack()
 
-        self.features_list = ScrolledText(frame3, width=20, height=18)
+        self.features_list = ScrolledText(frame3, width=20, height=18, state = tk.DISABLED)
         self.features_list.pack()
 
-        self.experts_list = ScrolledText(frame4, width=20, height=18)
+        self.experts_list = ScrolledText(frame4, width=20, height=18, state = tk.DISABLED)
         self.experts_list.pack()
 
         self.job_name = tk.Text(frame1, height=3, width=10, font=("Arial", 12))
@@ -79,24 +77,30 @@ class AddingAlternativesGui:
         ranking_calculator = RankingCalculator(
             alternatives_count, features_count, len(self.expert_names))
 
-        self.root.destroy()
-
         CategoriesComparisionGui(ranking_calculator, self.alternatives_names,
-                         self.features_names, self.expert_names).run()
+                         self.features_names, self.expert_names, self.root).run()
+
+
 
     def _add_job(self):
         new_job_name = self.job_name.get(1.0, "end-1c")
+        self.jobs_list.config(state = tk.NORMAL)
         self.jobs_list.insert(tk.INSERT, new_job_name + "\n")
+        self.jobs_list.config(state=tk.DISABLED)
         self.alternatives_names.append(new_job_name)
 
     def _add_category(self):
         new_category_name = self.category_name.get(1.0, "end-1c")
+        self.features_list.config(state=tk.NORMAL)
         self.features_list.insert(tk.INSERT, new_category_name + "\n")
+        self.features_list.config(state=tk.DISABLED)
         self.features_names.append(new_category_name)
 
     def _add_expert(self):
         new_expert_name = self.expert_name.get(1.0, "end-1c")
+        self.experts_list.config(state=tk.NORMAL)
         self.experts_list.insert(tk.INSERT, new_expert_name + "\n")
+        self.experts_list.config(state=tk.DISABLED)
         self.expert_names.append(new_expert_name)
 
     def run(self):

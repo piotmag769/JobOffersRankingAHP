@@ -5,24 +5,27 @@ from ranking import RankingCalculator
 
 
 class CategoriesComparisionGui:
-    def __init__(self, ranking_calculator: RankingCalculator, alternatives_names, features_names, experts_names):
+    def __init__(self, ranking_calculator: RankingCalculator, alternatives_names, features_names, experts_names, root):
         self.ranking_calculator = ranking_calculator
         self.alternatives_names = alternatives_names
         self.features_names = features_names
         self.expert_names = experts_names
+        self.root = root
         self.comparision_in_total_str = str(sum(i for i in range(len(self.features_names))))
 
         self.first_index = 0
         self.second_index = 1
         self.comparision_counter = 1
 
-        self.root = tk.Tk()
-        self.root.geometry('700x500')
+        for ele in root.winfo_children():
+            ele.destroy()
+
         self.root.title('Comparision for categories')
 
         frame1 = tk.Frame(self.root)
         frame2 = tk.Frame(self.root)
         frame3 = tk.Frame(self.root)
+        frame4 = tk.Frame(self.root)
 
         self.label = tk.Label(
             self.root, text="Comparing... 1/" + self.comparision_in_total_str, font=("Arial", 25))
@@ -37,12 +40,13 @@ class CategoriesComparisionGui:
         self.spin_box.pack()
 
         self.next_button = tk.Button(
-            frame3, text="Next", command=self._next_comparision, bg="#ccffff")
+            frame4, text="Next", command=self._next_comparision, bg="#ccffff")
         self.next_button.pack(ipadx=30, ipady=15, side=tk.BOTTOM)
 
         frame1.pack(side=tk.LEFT)
         frame2.pack(side=tk.LEFT)
         frame3.pack(side=tk.LEFT)
+        frame4.pack(side=tk.BOTTOM, anchor="e", padx=8, pady=8)
 
     def _generate_label(self):
         return self.features_names[self.first_index] + " / " + self.features_names[self.second_index] + " = "
@@ -77,9 +81,8 @@ class CategoriesComparisionGui:
                           str(self.comparision_counter) + "/" + self.comparision_in_total_str)
 
     def _open_results_gui(self):
-        self.root.destroy()
         AlternativesComparisionGui(self.ranking_calculator,
-                                   self.alternatives_names, self.features_names, self.expert_names).run()
+                                   self.alternatives_names, self.features_names, self.expert_names, self.root).run()
 
     def run(self):
         self.root.mainloop()

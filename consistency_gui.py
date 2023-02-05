@@ -2,9 +2,10 @@ import tkinter as tk
 
 
 class ConsistencyGui:
-    def __init__(self, C_1_2_consistency_ratio, C_array_consistency_ratios, C_arrays_per_expert_consistency_ratios, features_names):
-        self.root = tk.Tk()
-        self.root.geometry('700x500')
+    def __init__(self, C_1_2_consistency_ratio, C_array_consistency_ratios, C_arrays_per_expert_consistency_ratios, features_names, root):
+        self.root = root
+        for ele in root.winfo_children():
+            ele.destroy()
         self.root.title('Consistency ratio')
 
         self.C_1_2_consistency_ratio = C_1_2_consistency_ratio
