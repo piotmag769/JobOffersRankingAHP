@@ -5,13 +5,14 @@ from ranking import RankingCalculator
 
 
 class AlternativesComparisionGui:
-    feature_index = 0
-    expert_index = 0  # TODO
+    expert_index = 0
 
-    def __init__(self, ranking_calculator: RankingCalculator, alternatives_names, features_names):
+    def __init__(self, ranking_calculator: RankingCalculator, alternatives_names, features_names, expert_names):
         self.ranking_calculator = ranking_calculator
         self.alternatives_names = alternatives_names
         self.features_names = features_names
+        self.expert_names = expert_names
+        self.feature_index = 0
 
         self.first_index = 0
         self.second_index = 1
@@ -25,7 +26,7 @@ class AlternativesComparisionGui:
         frame3 = tk.Frame(self.root)
 
         self.label = tk.Label(
-            self.root, text='Comparing for...' + self.features_names[self.feature_index], font=("Arial", 25))
+            self.root, text=self.expert_names[self.expert_index] + ' comparing for...' + self.features_names[self.feature_index], font=("Arial", 25))
         self.label.pack(side=tk.TOP)
 
         self.job1 = tk.Label(frame1, font=("Arial", 15))
@@ -65,9 +66,9 @@ class AlternativesComparisionGui:
         ratio = self._read_from_spin_box()
 
         self.ranking_calculator.C_arrays_per_expert[AlternativesComparisionGui.expert_index][
-            AlternativesComparisionGui.feature_index][self.first_index][self.second_index] = ratio
+            self.feature_index][self.first_index][self.second_index] = ratio
         
-        self.ranking_calculator.C_arrays_per_expert[AlternativesComparisionGui.expert_index][AlternativesComparisionGui.feature_index][
+        self.ranking_calculator.C_arrays_per_expert[AlternativesComparisionGui.expert_index][self.feature_index][
             self.second_index][self.first_index] = 1 / ratio
 
         self.second_index += 1
@@ -76,24 +77,28 @@ class AlternativesComparisionGui:
             self.second_index = self.first_index + 1
 
         if self.first_index >= len(self.alternatives_names) - 1:
+            self.feature_index += 1
+            self.first_index = 0
+            self.second_index = 1
+
+        if self.feature_index == len(self.features_names):
             self._open_results_gui()
             return
+
+        self.label.config(text=self.expert_names[self.expert_index] + ' comparing for...' + self.features_names[self.feature_index])
 
         self.job1.config(text=self._generate_label())
 
     def _open_results_gui(self):
         self.root.destroy()
-        AlternativesComparisionGui.feature_index += 1
-        
-        # TODO: jak zmieniasz eksperta
-        # AlternativesComparisionGui.expert_index += 1 
+        AlternativesComparisionGui.expert_index += 1
 
-        if AlternativesComparisionGui.feature_index == len(self.features_names):
+        if AlternativesComparisionGui.expert_index == len(self.expert_names):
             ResultsGui(self.ranking_calculator,
                        self.alternatives_names, self.features_names).run()
         else:
             AlternativesComparisionGui(
-                self.ranking_calculator, self.alternatives_names, self.features_names).run()
+                self.ranking_calculator, self.alternatives_names, self.features_names, self.expert_names).run()
 
     def run(self):
         self.root.mainloop()

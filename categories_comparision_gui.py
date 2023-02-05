@@ -5,10 +5,11 @@ from ranking import RankingCalculator
 
 
 class CategoriesComparisionGui:
-    def __init__(self, ranking_calculator: RankingCalculator, alternatives_names, features_names):
+    def __init__(self, ranking_calculator: RankingCalculator, alternatives_names, features_names, experts_names):
         self.ranking_calculator = ranking_calculator
         self.alternatives_names = alternatives_names
         self.features_names = features_names
+        self.expert_names = experts_names
         self.comparision_in_total_str = str(sum(i for i in range(len(self.features_names))))
 
         self.first_index = 0
@@ -78,7 +79,7 @@ class CategoriesComparisionGui:
     def _open_results_gui(self):
         self.root.destroy()
         AlternativesComparisionGui(self.ranking_calculator,
-                                   self.alternatives_names, self.features_names).run()
+                                   self.alternatives_names, self.features_names, self.expert_names).run()
 
     def run(self):
         self.root.mainloop()
