@@ -9,6 +9,7 @@ class CategoriesComparisionGui:
         self.ranking_calculator = ranking_calculator
         self.alternatives_names = alternatives_names
         self.features_names = features_names
+        self.comparision_in_total_str = str(sum(i for i in range(len(self.features_names))))
 
         self.first_index = 0
         self.second_index = 1
@@ -23,7 +24,7 @@ class CategoriesComparisionGui:
         frame3 = tk.Frame(self.root)
 
         self.label = tk.Label(
-            self.root, text="Comparing... 1/10", font=("Arial", 25))
+            self.root, text="Comparing... 1/" + self.comparision_in_total_str, font=("Arial", 25))
         self.label.pack(side=tk.TOP)
 
         self.features_label = tk.Label(
@@ -72,7 +73,7 @@ class CategoriesComparisionGui:
 
         self.features_label.config(text=self._generate_label())
         self.label.config(text="Comparing..." +
-                          str(self.comparision_counter) + "/10")
+                          str(self.comparision_counter) + "/" + self.comparision_in_total_str)
 
     def _open_results_gui(self):
         self.root.destroy()

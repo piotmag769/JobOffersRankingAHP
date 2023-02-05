@@ -7,6 +7,7 @@ from categories_comparision_gui import CategoriesComparisionGui
 from ranking import RankingCalculator
 
 
+# TODO: zrób okienka z dodanymi pracami i kategoriami uneditable
 class AddingAlternativesGui:
     def __init__(self):
         self.features_names = []
@@ -57,8 +58,8 @@ class AddingAlternativesGui:
         alternatives_count = len(self.alternatives_names)
         features_count = len(self.features_names)
 
-        if alternatives_count < 3:
-            tk.messagebox.showinfo("Stop - wait a minute", "Hi :)) You need at least 3 job offers")
+        if alternatives_count < 3 or features_count < 3:
+            tk.messagebox.showinfo("Stop - wait a minute", "Hi :)) You need at least 3 job offers and 3 categories")
             return
 
         ranking_calculator = RankingCalculator(

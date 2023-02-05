@@ -2,13 +2,14 @@ import tkinter as tk
 
 
 class ConsistencyGui:
-    def __init__(self, C_1_2_consistency_ratio, C_array_consistency_ratios, features_names):
+    def __init__(self, C_1_2_consistency_ratio, C_array_consistency_ratios, C_arrays_per_expert_consistency_ratios, features_names):
         self.root = tk.Tk()
         self.root.geometry('700x500')
         self.root.title('Consistency ratio')
 
         self.C_1_2_consistency_ratio = C_1_2_consistency_ratio
         self.C_array_consistency_ratios = C_array_consistency_ratios
+        self.C_arrays_per_expert_consistency_ratios = C_arrays_per_expert_consistency_ratios
         self.features_names = features_names
 
         self.title_label = tk.Label(text='Consistency ratios',
@@ -19,7 +20,7 @@ class ConsistencyGui:
             text='for categories comparision matrix: ' + str(self.C_1_2_consistency_ratio), font=("Arial", 12))
         self.C_1_2_consistency_label.pack()
 
-        self.title_label_jobs = tk.Label(text='for jobs comparision matrix: ',
+        self.title_label_jobs = tk.Label(text='for jobs comparision matrices: ',
                                          font=("Arial", 12))
         self.title_label_jobs.pack()
 
@@ -31,11 +32,17 @@ class ConsistencyGui:
         self._fill_listbox()
 
     def _fill_listbox(self):
-        nr_of_jobs = len(self.C_array_consistency_ratios)
+        nr_of_experts = len(self.C_arrays_per_expert_consistency_ratios)
+        nr_of_features = len(self.C_array_consistency_ratios)
 
-        for i in range(nr_of_jobs):
-            self.listbox.insert("end", "in terms of " + self.features_names[i] + ": " + str(
-                self.C_array_consistency_ratios[i]))
+        for i in range(nr_of_experts):
+            for j in range(nr_of_features):
+                self.listbox.insert("end", "expert " + str(i) + " in terms of " + self.features_names[j] + ": " +
+                                    str(self.C_arrays_per_expert_consistency_ratios[i][j]))
+
+        for i in range(nr_of_features):
+            self.listbox.insert("end", "aggregated rating in terms of " + self.features_names[i] + ": " +
+                                str(self.C_array_consistency_ratios[i]))
 
     def run(self):
         self.root.mainloop()

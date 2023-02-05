@@ -19,36 +19,35 @@ class ResultsGui:
         self.label.pack(side=tk.TOP)
 
         self.listbox = tk.Listbox(height=10,
-                          width=15,
-                          activestyle='dotbox',
-                          font="Helvetica",
-                          fg="blue")
+                                  width=15,
+                                  activestyle='dotbox',
+                                  font="Helvetica",
+                                  fg="blue")
         self.listbox.pack()
 
-        self.next_button = tk.Button(text="Show consistency ratios", command=self._show_consistency_ratios, bg="#ccffff")
+        self.next_button = tk.Button(
+            text="Show consistency ratios", command=self._show_consistency_ratios, bg="#ccffff")
         self.next_button.pack(ipadx=30, ipady=15, side=tk.BOTTOM)
-        
-        self.ranking, self.C_1_2_consistency_ratio, self.C_array_consistency_ratios = self.ranking_calculator.compute_ranking_and_consistency_ratios()
+
+        self.ranking, self.C_1_2_consistency_ratio, self.C_array_consistency_ratio, self.C_array_consistency_ratios \
+            = self.ranking_calculator.compute_ranking_and_consistency_ratios()
+
         self._make_ranking()
 
     def _make_ranking(self):
         nr_of_jobs = len(self.ranking)
         for i in range(nr_of_jobs):
-            self.ranking[i] = np.append(self.ranking[i],i)
+            self.ranking[i] = np.append(self.ranking[i], i)
         self.ranking.sort(key=lambda y: y[0])
 
         for i in range(nr_of_jobs):
-            self.listbox.insert("end", str(i+1) + ". " + self.alternatives_names[int(self.ranking[i][1])])
+            self.listbox.insert("end", str(i+1) + ". " +
+                                self.alternatives_names[int(self.ranking[i][1])])
 
     def _show_consistency_ratios(self):
         self.root.destroy()
-        ConsistencyGui(self.C_1_2_consistency_ratio, self.C_array_consistency_ratios, self.features_names).run()
-
+        ConsistencyGui(self.C_1_2_consistency_ratio, self.C_array_consistency_ratio,
+                       self.C_array_consistency_ratios, self.features_names).run()
 
     def run(self):
         self.root.mainloop()
-
-
-
-
-

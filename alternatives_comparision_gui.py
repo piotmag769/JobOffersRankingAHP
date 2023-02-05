@@ -6,6 +6,7 @@ from ranking import RankingCalculator
 
 class AlternativesComparisionGui:
     feature_index = 0
+    expert_index = 0  # TODO
 
     def __init__(self, ranking_calculator: RankingCalculator, alternatives_names, features_names):
         self.ranking_calculator = ranking_calculator
@@ -63,8 +64,11 @@ class AlternativesComparisionGui:
     def _next_comparision(self):
         ratio = self._read_from_spin_box()
 
-        self.ranking_calculator.C_array[AlternativesComparisionGui.feature_index][self.first_index][self.second_index] = ratio
-        self.ranking_calculator.C_array[AlternativesComparisionGui.feature_index][self.second_index][self.first_index] = 1 / ratio
+        self.ranking_calculator.C_arrays_per_expert[AlternativesComparisionGui.expert_index][
+            AlternativesComparisionGui.feature_index][self.first_index][self.second_index] = ratio
+        
+        self.ranking_calculator.C_arrays_per_expert[AlternativesComparisionGui.expert_index][AlternativesComparisionGui.feature_index][
+            self.second_index][self.first_index] = 1 / ratio
 
         self.second_index += 1
         if self.second_index == len(self.alternatives_names):
@@ -80,9 +84,13 @@ class AlternativesComparisionGui:
     def _open_results_gui(self):
         self.root.destroy()
         AlternativesComparisionGui.feature_index += 1
+        
+        # TODO: jak zmieniasz eksperta
+        # AlternativesComparisionGui.expert_index += 1 
 
         if AlternativesComparisionGui.feature_index == len(self.features_names):
-            ResultsGui(self.ranking_calculator, self.alternatives_names, self.features_names).run()
+            ResultsGui(self.ranking_calculator,
+                       self.alternatives_names, self.features_names).run()
         else:
             AlternativesComparisionGui(
                 self.ranking_calculator, self.alternatives_names, self.features_names).run()

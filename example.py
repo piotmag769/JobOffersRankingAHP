@@ -26,7 +26,8 @@ C_3 = [
 C_4 = [
     [1, 9, 4],
     [1/9, 1, 1/4],
-    [1/4, 4, 1]]
+    [1/4, 4, 1]
+]
 
 C_5 = [
     [1, 1, 1],
@@ -52,7 +53,7 @@ C_8 = [
     [2, 1, 1]
 ]
 
-C_array = [C_1, C_2, C_3, C_4, C_5, C_6, C_7, C_8]
+C_arrays_per_expert = [[C_1, C_2, C_3, C_4, C_5, C_6, C_7, C_8], [C_8, C_7, C_6, C_5, C_4, C_3, C_2, C_1]]
 
 C_1_2 = [
     [1, 4, 7, 5, 8, 6, 6, 2],
@@ -72,6 +73,6 @@ if __name__ == "__main__":
 
     ranking_calculator = RankingCalculator(alternatives_count, features_count)
     ranking_calculator.C_1_2 = np.array(C_1_2)
-    ranking_calculator.C_array = np.array(C_array)
+    ranking_calculator.C_arrays_per_expert = np.array(C_arrays_per_expert)
 
     print(ranking_calculator.compute_ranking_and_consistency_ratios())
